@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katalog Produk</title>
+<meta name="description" content="Daftar produk yang dibahas di video. Cari nomornya, lalu ketuk untuk membuka di Shopee.">
+<style>
+:root { --bg: #f6f5f3; --card: #ffffff; --text: #1d1b19; --muted: #6b6560; --line: #e7e3de;
+        --accent: #ee4d2d; --accent-text: #ffffff; --badge: #1d1b19; --badge-text: #ffffff; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #151413; --card: #211f1d; --text: #f3f0ec; --muted: #a39b93; --line: #33302d;
+          --badge: #f3f0ec; --badge-text: #151413; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+       font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.wrap { max-width: 560px; margin: 0 auto; padding: 28px 16px 40px; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; letter-spacing: -0.01em; }
+.sub { color: var(--muted); margin: 0 0 18px; }
+input[type=search] { width: 100%; padding: 13px 14px; font-size: 1rem; border-radius: 12px;
+       border: 1px solid var(--line); background: var(--card); color: var(--text); }
+input[type=search]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.list { display: grid; gap: 12px; margin-top: 16px; }
+.item { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: center; padding: 12px;
+        background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+        color: inherit; text-decoration: none; position: relative; }
+.item:target, .item.hit { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.item img { width: 96px; height: 96px; object-fit: contain; background: #fff; border-radius: 10px; }
+.num { position: absolute; top: -8px; left: -6px; background: var(--badge); color: var(--badge-text);
+       font-weight: 800; font-size: 0.85rem; padding: 3px 9px; border-radius: 999px; }
+.item h2 { font-size: 1rem; margin: 0 0 4px; }
+.item p { margin: 0 0 10px; color: var(--muted); font-size: 0.9rem; }
+.btn { display: inline-block; background: var(--accent); color: var(--accent-text); font-weight: 700;
+       font-size: 0.9rem; padding: 8px 14px; border-radius: 999px; }
+.empty { text-align: center; color: var(--muted); padding: 24px 0; }
+footer { margin-top: 28px; color: var(--muted); font-size: 0.8rem; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Katalog Produk</h1>
+<p class="sub">Cari nomor yang disebut di video, lalu ketuk "Lihat di Shopee".</p>
+<input type="search" id="cari" placeholder="Ketik nomor atau nama produk" inputmode="search" autocomplete="off">
+<div class="list">
+<a class="item" id="1" data-nomor="1" data-cari="1 earphone kabel basike (lightning / type-c) colok langsung, ada tombol &amp; mic. pilih varian sesuai port hp kamu." href="https://s.shopee.co.id/5LBvkdHiYi" target="_blank" rel="nofollow sponsored noopener"><span class="num">#1</span><img src="img/earphone-basike.jpg" alt="" loading="lazy" width="96" height="96"><div><h2>Earphone Kabel BASIKE (Lightning / Type-C)</h2><p>Colok langsung, ada tombol &amp; mic. Pilih varian sesuai port HP kamu.</p><span class="btn">Lihat di Shopee</span></div></a>
+</div>
+<p class="empty" id="kosong" hidden>Nomor tidak ditemukan. Cek lagi nomor yang disebut di videonya.</p>
+<footer>Link di halaman ini adalah link affiliate: saya mendapat komisi kecil kalau kamu membeli lewat link ini,
+tanpa biaya tambahan untukmu. Harga, stok, dan promo mengikuti halaman Shopee saat kamu membukanya.</footer>
+</div>
+<script>
+const input = document.getElementById('cari');
+const items = [...document.querySelectorAll('.item')];
+const empty = document.getElementById('kosong');
+function filter() {
+  const q = input.value.trim().toLowerCase().replace(/^#/, '');
+  let shown = 0;
+  for (const item of items) {
+    const match = !q || (/^\d+$/.test(q) ? item.dataset.nomor === q : item.dataset.cari.includes(q));
+    item.hidden = !match;
+    item.classList.toggle('hit', Boolean(q) && match);
+    if (match) shown++;
+  }
+  empty.hidden = shown > 0;
+}
+input.addEventListener('input', filter);
+</script>
+</body>
+</html>
