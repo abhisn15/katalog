@@ -2,107 +2,171 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Katalog Produk - Gadget Hemat</title>
-<meta name="description" content="Daftar produk yang dibahas di video. Cari nomornya, lalu ketuk untuk membuka di Shopee.">
+<meta name="description" content="Daftar produk yang dibahas di video. Cari nomor yang disebut, lalu ketuk untuk membuka di Shopee.">
 <meta name="theme-color" content="#0e1c2d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Space+Grotesk:wght@700&display=swap">
 <style>
-:root { --bg: #f6f5f3; --card: #ffffff; --text: #1d1b19; --muted: #6b6560; --line: #e7e3de;
-        --navy: #0e1c2d; --teal: #0d8e84; --lime: #bef264;
-        --accent: #ee4d2d; --accent-text: #ffffff; --chip: #ffffff; --chip-text: #1d1b19;
-        --shadow: 0 1px 2px rgba(14, 28, 45, 0.06), 0 8px 24px rgba(14, 28, 45, 0.06); }
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #121617; --card: #1b2122; --text: #f3f0ec; --muted: #9aa3a3; --line: #2b3334;
-          --chip: #1b2122; --chip-text: #f3f0ec;
-          --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3); }
+:root {
+  --ink: #0e1c2d; --teal: #0d8e84; --lime: #bef264; --shopee: #ee4d2d;
+  --paper: #fbfaf8; --card: #ffffff; --text: #16202b; --muted: #6a7480; --line: #e6e1d9;
+  --strip: var(--ink); --strip-num: var(--lime); --strip-hash: rgba(190, 242, 100, .55);
+  --lift: 0 1px 1px rgba(14,28,45,.04), 0 10px 20px -12px rgba(14,28,45,.28);
+  --sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "Space Grotesk", ui-monospace, "SF Mono", Consolas, monospace;
+}
+[data-theme="dark"] {
+  --paper: #0d1418; --card: #16202599; --text: #eef2f0; --muted: #94a3a5; --line: #26333a;
+  --strip: #0a2f33; --strip-num: var(--lime); --strip-hash: rgba(190, 242, 100, .5);
+  --lift: 0 1px 1px rgba(0,0,0,.4), 0 12px 24px -14px rgba(0,0,0,.8);
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--text);
-       font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-       -webkit-font-smoothing: antialiased; }
-img { max-width: 100%; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--text); font-family: var(--sans);
+       font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 4px; }
 
-.hero { background: linear-gradient(135deg, var(--navy) 0%, #0d5559 55%, var(--teal) 100%);
-        color: #fff; padding: 26px 16px 22px; }
-.hero-in { max-width: 640px; margin: 0 auto; display: flex; gap: 14px; align-items: center; }
-.hero img { width: 54px; height: 54px; border-radius: 14px; flex: none; background: #fff; }
-.hero h1 { font-size: 1.32rem; margin: 0; letter-spacing: -0.02em; line-height: 1.2; }
-.hero p { margin: 4px 0 0; font-size: 0.86rem; color: rgba(255, 255, 255, 0.78); }
-.hero .bar { height: 4px; width: 46px; background: var(--lime); border-radius: 999px; margin-top: 9px; }
+/* --- kepala halaman: blok navy penuh, bukan gradien --- */
+.top { background: var(--ink); color: #fff; }
+.top-in { max-width: 680px; margin: 0 auto; padding: 18px 20px 22px;
+          display: grid; grid-template-columns: auto 1fr auto; gap: 13px; align-items: center; }
+.top img { width: 42px; height: 42px; border-radius: 11px; }
+.brand { font-size: .69rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+         color: var(--lime); margin: 0 0 1px; }
+.top h1 { font-size: 1.24rem; font-weight: 800; letter-spacing: -.025em; margin: 0; line-height: 1.15; }
+.themer { background: rgba(255,255,255,.1); border: 0; color: #fff; width: 36px; height: 36px;
+          border-radius: 10px; cursor: pointer; font-size: 1rem; line-height: 1; display: grid;
+          place-items: center; transition: background .15s; }
+.themer:hover { background: rgba(255,255,255,.2); }
+/* pita lime menempel penuh di bawah blok navy, jadi terbaca sebagai bagian dari kop,
+   bukan garis yang mengambang di tengah halaman */
+.rule { height: 4px; background: var(--lime); }
 
-.wrap { max-width: 640px; margin: 0 auto; padding: 18px 16px 40px; }
-.howto { display: flex; gap: 9px; align-items: flex-start; background: var(--card); border: 1px solid var(--line);
-         border-radius: 14px; padding: 11px 13px; font-size: 0.87rem; color: var(--muted); box-shadow: var(--shadow); }
-.howto b { color: var(--text); font-weight: 600; }
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 20px 48px; }
+.lede { color: var(--muted); font-size: .89rem; margin: 15px 0 0; max-width: 42ch; }
+.lede b { color: var(--text); font-weight: 600; }
 
-.tools { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 14px 0 10px; }
+/* --- pencarian + kategori --- */
+.tools { position: sticky; top: 0; z-index: 5; background: var(--paper); padding: 14px 0 9px;
+         margin-top: 3px; }
+.tools::after { content: ""; position: absolute; inset: auto 0 -14px; height: 14px;
+                background: linear-gradient(var(--paper), transparent); pointer-events: none; }
 .search { position: relative; }
-.search svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); }
-input[type=search] { width: 100%; padding: 13px 14px 13px 40px; font-size: 1rem; border-radius: 13px;
-       border: 1px solid var(--line); background: var(--card); color: var(--text); box-shadow: var(--shadow);
-       -webkit-appearance: none; }
-input[type=search]:focus { outline: 2px solid var(--teal); outline-offset: 1px; border-color: transparent; }
+.search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+input[type=search] { width: 100%; font: 500 1rem/1 var(--sans); color: var(--text);
+       padding: 14px 14px 14px 41px; border-radius: 12px; border: 1.5px solid var(--line);
+       background: var(--card); -webkit-appearance: none; transition: border-color .15s; }
+input[type=search]::placeholder { color: var(--muted); font-weight: 400; }
+input[type=search]:focus { outline: 0; border-color: var(--teal); }
 
-.cats { display: flex; gap: 7px; margin-top: 10px; overflow-x: auto; scrollbar-width: none;
-        padding-bottom: 2px; -webkit-overflow-scrolling: touch; }
+.cats { display: flex; gap: 6px; margin-top: 9px; overflow-x: auto; scrollbar-width: none; }
 .cats::-webkit-scrollbar { display: none; }
-.cat { flex: none; border: 1px solid var(--line); background: var(--chip); color: var(--chip-text);
-       font: inherit; font-size: 0.85rem; font-weight: 600; padding: 7px 14px; border-radius: 999px;
-       cursor: pointer; white-space: nowrap; transition: background .15s, color .15s, border-color .15s; }
-.cat[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
-@media (prefers-color-scheme: dark) { .cat[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); } }
-.cat .n { opacity: .55; font-weight: 500; margin-left: 4px; }
+.cat { flex: none; font: 600 .83rem/1 var(--sans); color: var(--muted); cursor: pointer;
+       background: none; border: 1.5px solid var(--line); border-radius: 999px; padding: 8px 14px;
+       white-space: nowrap; transition: .15s; }
+.cat:hover { color: var(--text); border-color: var(--muted); }
+.cat[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+[data-theme="dark"] .cat[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); }
+.cat .n { font-family: var(--mono); opacity: .6; margin-left: 5px; }
 
-/* sengaja satu kolom di semua lebar: hampir semua pengunjung datang dari link profil di HP,
-   dan dua kolom bikin kartunya sempit sampai judul pecah tiga baris */
-.list { display: grid; gap: 12px; margin-top: 4px; }
-.item { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: center; padding: 12px;
-        background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
-        color: inherit; text-decoration: none; position: relative;
-        transition: transform .15s, box-shadow .15s, border-color .15s; }
-@media (hover: hover) { .item:hover { transform: translateY(-2px); border-color: var(--teal); } }
-.item:target, .item.hit { border-color: var(--teal);
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 28%, transparent); }
-.item img { width: 96px; height: 96px; object-fit: contain; background: #fff; border-radius: 11px; }
-.num { position: absolute; top: -8px; left: -6px; background: var(--navy); color: var(--lime);
-       font-weight: 800; font-size: 0.85rem; padding: 3px 10px; border-radius: 999px;
-       box-shadow: 0 2px 6px rgba(14, 28, 45, .25); }
-.tag { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: .03em;
-       text-transform: uppercase; color: var(--teal); margin: 0 0 3px; }
-.item h2 { font-size: 0.98rem; margin: 0 0 4px; line-height: 1.3; }
-.item p { margin: 0 0 10px; color: var(--muted); font-size: 0.87rem; }
-.btn { display: inline-block; background: var(--accent); color: var(--accent-text); font-weight: 700;
-       font-size: 0.87rem; padding: 8px 15px; border-radius: 999px; }
-.empty { text-align: center; color: var(--muted); padding: 28px 8px; }
-footer { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line);
-         color: var(--muted); font-size: 0.79rem; line-height: 1.55; }
+/* --- kartu: strip nomor di kiri, seperti sobekan tiket --- */
+.list { display: grid; gap: 10px; margin-top: 14px; }
+.item { display: grid; grid-template-columns: 50px 92px 1fr; align-items: stretch;
+        background: var(--card); border: 1.5px solid var(--line); border-radius: 14px;
+        overflow: hidden; color: inherit; text-decoration: none; transition: .18s; }
+@media (hover: hover) { .item:hover { border-color: var(--ink); box-shadow: var(--lift);
+        transform: translateY(-1px); } }
+[data-theme="dark"] .item:hover { border-color: var(--teal); }
+.item:target, .item.hit { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(13,142,132,.2); }
+.strip { background: var(--strip); color: var(--strip-num); display: grid; place-content: center;
+         text-align: center; padding: 4px; }
+.strip .h { display: block; font-size: .62rem; font-weight: 800; letter-spacing: .1em;
+            color: var(--strip-hash); }
+.strip .v { display: block; font: 700 1.6rem/1 var(--mono); letter-spacing: -.02em; }
+.shot { align-self: center; padding: 9px 0 9px 9px; }
+.shot img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; border-radius: 9px; }
+.meat { padding: 12px 13px; min-width: 0; align-self: center; }
+.tag { font: 800 .64rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase;
+       color: var(--teal); display: block; margin-bottom: 5px; }
+.item h2 { font-size: .95rem; font-weight: 700; letter-spacing: -.015em; margin: 0 0 3px;
+           line-height: 1.28; }
+.item p { margin: 0 0 9px; color: var(--muted); font-size: .84rem; line-height: 1.4; }
+.go { display: inline-flex; align-items: center; gap: 5px; background: var(--shopee); color: #fff;
+      font: 700 .83rem/1 var(--sans); padding: 9px 14px; border-radius: 9px; }
+.go svg { margin-top: 1px; }
+
+.empty { text-align: center; color: var(--muted); font-size: .89rem; padding: 34px 10px; }
+footer { margin-top: 30px; padding-top: 15px; border-top: 1.5px solid var(--line);
+         color: var(--muted); font-size: .78rem; line-height: 1.6; }
+
+/* --- layar sempit: strip & foto dikecilkan supaya judul tetap dapat ruang --- */
+@media (max-width: 380px) {
+  .item { grid-template-columns: 42px 76px 1fr; }
+  .strip .v { font-size: 1.35rem; }
+  .meat { padding: 11px 11px 11px 12px; }
+  .top-in, .wrap, .rule { padding-left: 15px; padding-right: 15px; }
+}
+/* --- layar lebar: kartu dilonggarkan, bukan dipecah jadi dua kolom sempit --- */
+@media (min-width: 600px) {
+  .item { grid-template-columns: 62px 118px 1fr; }
+  .strip .v { font-size: 1.95rem; }
+  .item h2 { font-size: 1.02rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
-<header class="hero">
-<div class="hero-in"><img src="img/logo.jpg" alt="" width="54" height="54">
-<div><h1>Katalog Produk</h1><p>Rekomendasi gadget & aksesoris HP murah yang sudah dicek dulu sebelum beli.</p><div class="bar"></div></div>
+<header class="top">
+<div class="top-in"><img src="img/logo.jpg" alt="" width="42" height="42">
+<div><p class="brand">Gadget Hemat</p><h1>Katalog Produk</h1></div>
+<button class="themer" id="tema" type="button" aria-label="Ganti mode warna"></button>
 </div>
 </header>
+<div class="rule"></div>
 <div class="wrap">
-<p class="howto">&#128161;<span>Sebutan nomor di video ada di badge <b>#</b> tiap produk. Ketik nomornya di kotak
-cari, atau pilih kategori di bawah.</span></p>
+<p class="lede">Gadget & aksesoris HP murah, dicek dulu sebelum masuk daftar. Nomor di tiap kartu sama dengan nomor yang <b>disebut di video</b> &mdash;
+ketik nomornya di bawah untuk langsung ketemu.</p>
 <div class="tools">
 <div class="search">
-<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
- stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-<input type="search" id="cari" placeholder="Ketik nomor atau nama produk" inputmode="search" autocomplete="off">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+ stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
+<input type="search" id="cari" placeholder="Ketik nomor, nama produk, atau kategori" inputmode="search" autocomplete="off">
 </div>
 <div class="cats"><button class="cat" type="button" data-kategori="semua" aria-pressed="true">Semua<span class="n">1</span></button><button class="cat" type="button" data-kategori="audio" aria-pressed="false">Audio<span class="n">1</span></button></div>
 </div>
 <div class="list">
-<a class="item" id="1" data-nomor="1" data-cari="1 earphone kabel basike (lightning / type-c) colok langsung, ada tombol &amp; mic. pilih varian sesuai port hp kamu. audio" data-kategori="audio" href="https://s.shopee.co.id/5LBvkdHiYi" target="_blank" rel="nofollow sponsored noopener"><span class="num">#1</span><img src="img/earphone-basike.jpg" alt="" loading="lazy" width="96" height="96"><div><span class="tag">Audio</span><h2>Earphone Kabel BASIKE (Lightning / Type-C)</h2><p>Colok langsung, ada tombol &amp; mic. Pilih varian sesuai port HP kamu.</p><span class="btn">Lihat di Shopee</span></div></a>
+<a class="item" id="1" data-nomor="1" data-cari="1 earphone kabel basike (lightning / type-c) colok langsung, ada tombol &amp; mic. pilih varian sesuai port hp kamu. audio" data-kategori="audio" href="https://s.shopee.co.id/5LBvkdHiYi" target="_blank" rel="nofollow sponsored noopener"><span class="strip"><span class="h">NO</span><span class="v">1</span></span><span class="shot"><img src="img/earphone-basike.jpg" alt="" loading="lazy" width="104" height="104"></span><span class="meat"><span class="tag">Audio</span><h2>Earphone Kabel BASIKE (Lightning / Type-C)</h2><p>Colok langsung, ada tombol &amp; mic. Pilih varian sesuai port HP kamu.</p><span class="go">Lihat di Shopee<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
 </div>
-<p class="empty" id="kosong" hidden>Nggak ketemu. Cek lagi nomor yang disebut di videonya, atau hapus filter kategori.</p>
-<footer>Link di halaman ini adalah link affiliate: saya mendapat komisi kecil kalau kamu membeli lewat link ini,
+<p class="empty" id="kosong" hidden>Nggak ketemu. Cek lagi nomor yang disebut di videonya,
+atau tekan &ldquo;Semua&rdquo; untuk melepas filter kategori.</p>
+<footer>Semua link di halaman ini link affiliate: saya dapat komisi kecil kalau kamu beli lewat link ini,
 tanpa biaya tambahan untukmu. Harga, stok, dan promo mengikuti halaman Shopee saat kamu membukanya.</footer>
 </div>
 <script>
+const root = document.documentElement;
+const themer = document.getElementById('tema');
+
+// Default terang. Mode gelap hanya kalau pengunjung sendiri yang memilihnya.
+try {
+  if (localStorage.getItem('tema') === 'gelap') root.dataset.theme = 'dark';
+} catch (e) {}
+function paintThemer() {
+  const dark = root.dataset.theme === 'dark';
+  themer.textContent = dark ? '\u2600' : '\u263D';
+  themer.setAttribute('aria-label', dark ? 'Pakai mode terang' : 'Pakai mode gelap');
+}
+paintThemer();
+themer.addEventListener('click', () => {
+  const dark = root.dataset.theme === 'dark';
+  if (dark) delete root.dataset.theme; else root.dataset.theme = 'dark';
+  try { localStorage.setItem('tema', dark ? 'terang' : 'gelap'); } catch (e) {}
+  paintThemer();
+});
+
 const input = document.getElementById('cari');
 const items = [...document.querySelectorAll('.item')];
 const cats = [...document.querySelectorAll('.cat')];
@@ -122,7 +186,6 @@ function filter() {
   }
   empty.hidden = shown > 0;
 }
-
 input.addEventListener('input', filter);
 for (const btn of cats) {
   btn.addEventListener('click', () => {
