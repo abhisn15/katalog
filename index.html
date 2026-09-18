@@ -28,6 +28,7 @@ html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--paper); color: var(--text); font-family: var(--sans);
        font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; display: block; }
+[hidden] { display: none !important; }   /* wajib: .item pakai display:grid, tanpa ini atribut hidden ke-override & filter ga jalan */
 :focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 4px; }
 
 /* --- kepala halaman: blok navy penuh, bukan gradien --- */
